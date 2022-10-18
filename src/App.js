@@ -15,15 +15,16 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(
-      uiActions.showNotification({
-        status: "Pending",
-        title: "Sending...",
-        message: "Sending cart data!",
-      })
-    );
-
     const sendCartData = async () => {
+
+      dispatch(
+        uiActions.showNotification({
+          status: "Pending",
+          title: "Sending...",
+          message: "Sending cart data!",
+        })
+      );
+
       const response = await fetch(
         "https://add-items-in-cart-default-rtdb.asia-southeast1.firebasedatabase.app/cart.json",
         {
@@ -54,15 +55,16 @@ function App() {
         })
       );
     });
+
   }, [cart, dispatch]);
 
   return (
     <>
-      <Notification
+      { notification && <Notification
         status={notification.status}
         title={notification.title}
         message={notification.message}
-      />
+      /> }
       <Layout>
         {showCart && <Cart />}
         <Products />
